@@ -1,0 +1,4 @@
+nicegui
+signe
+fastapi
+pandas
