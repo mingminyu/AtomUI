@@ -3,10 +3,11 @@ from typing import Any, Callable, List, Optional, Dict, Union
 from typing_extensions import Literal
 from nicegui import ui
 from signe import effect
-from ..utils.signals import ReadonlyRef, is_ref, _TMaybeRef as TMaybeRef
+from ..utils.signals import ReadonlyRef, is_ref
+from ..utils.signals import _TMaybeRef as TMaybeRef
 from .base import SingleValueBindableUi
 from ..utils import convert_kws_ref2value
-from bettergui import bui
+from atomui import webui
 
 
 class InputBindableUi(SingleValueBindableUi[str, ui.input]):
@@ -172,11 +173,12 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
                 if left_icon_type == "avatar":
                     ui.avatar(left_icon, color=left_icon_color, size=left_icon_size)
                 elif left_icon_type == "button":
-                    bui.button(icon=left_icon,
-                               color=left_icon_color,
-                               size=left_icon_size,
-                               flat=left_icon_flat,
-                               dense=left_icon_dense
+                    webui.button(
+                        icon=left_icon,
+                        color=left_icon_color,
+                        size=left_icon_size,
+                        flat=left_icon_flat,
+                        dense=left_icon_dense
                                )
                 else:
                     ui.icon(left_icon)
@@ -200,11 +202,12 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
                 if right_icon_type == "avatar":
                     ui.avatar(right_icon, color=right_icon_color, size=right_icon_size)
                 elif right_icon_type == "button":
-                    bui.button(icon=right_icon,
-                               color=right_icon_color,
-                               size=right_icon_size,
-                               flat=right_icon_flat,
-                               dense=right_icon_dense
+                    webui.button(
+                        icon=right_icon,
+                        color=right_icon_color,
+                        size=right_icon_size,
+                        flat=right_icon_flat,
+                        dense=right_icon_dense
                                )
                 else:
                     ui.icon(right_icon)
