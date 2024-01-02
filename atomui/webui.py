@@ -9,3 +9,6 @@ from .elements import switch
 from .elements import toggle
 from .elements import radio
 from .elements import table
+from .elements import avatar
+from .elements import badge
+from .elements import menu, menu_item

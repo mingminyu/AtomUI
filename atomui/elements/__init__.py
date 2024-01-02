@@ -15,3 +15,7 @@ from .switch import SwitchBindableUi as switch
 from .radio import RadioBindableUi as radio
 from .toggle import ToggleBindableUi as btn_toggle
 from .table import TableBindableUi as table
+from .avatar import AvatarBindableUi as avatar
+from .badge import BadgeBindableUi as badge
+from .menu import MenuBindableUi as menu
+from .menu import MenuItemBindableUi as menu_item
