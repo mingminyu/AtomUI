@@ -1,4 +1,3 @@
-# coding: utf8
 from nicegui import ui
 from signe import effect
 from typing import Any, Callable, Optional, Literal, Union, List, Dict

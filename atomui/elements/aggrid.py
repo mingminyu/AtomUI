@@ -1,4 +1,3 @@
-# coding: utf8
 from nicegui import ui
 from typing import List, Dict
 from signe import effect

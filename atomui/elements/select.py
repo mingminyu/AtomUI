@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Any, Callable, List, Optional
 from typing import TypeVar, cast, Dict, Union
 from signe import effect

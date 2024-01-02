@@ -1,4 +1,3 @@
-# coding: utf8
 from signe import effect
 from nicegui import ui
 from .base import SingleValueBindableUi

@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Optional, Callable, Union
 from nicegui import ui
 from .base import SingleValueBindableUi

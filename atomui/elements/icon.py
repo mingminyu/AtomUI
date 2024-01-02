@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Optional, cast
 from signe import effect
 from nicegui import ui

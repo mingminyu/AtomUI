@@ -1,4 +1,3 @@
-# coding: utf8
 import asyncio
 from typing import Any, Callable, Optional, Literal, Union
 from ..utils.signals import ReadonlyRef, is_ref

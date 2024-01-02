@@ -1,10 +1,10 @@
-from setuptools import setup  # type: ignore
+from setuptools import setup, find_packages
 
 setup(
-    name='atomui',
+    name='AtomUI',
     version='0.1',
-    packages=['atomui'],
-    url='https://github.com/mingminyu/atomui',
+    packages=find_packages(),
+    url='https://github.com/mingminyu/AtomUI',
     license='Apache 2.0',
     author='mingminyu',
     author_email='yu_mingm623@163.com',

@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Optional
 from ..utils import convert_kws_ref2value
 

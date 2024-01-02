@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Any, Callable, Optional
 from nicegui import ui
 from nicegui import events as ng_events

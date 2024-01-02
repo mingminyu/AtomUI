@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Any, Callable, List, Optional, Dict, cast, Union
 from typing_extensions import Literal
 from ..utils import common as utils_common

@@ -1,6 +1,5 @@
-# coding: utf8
-from nicegui import ui
 from signe import effect
+from nicegui import ui
 from typing import Any, Callable, Optional, Literal, Union
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
@@ -8,7 +7,7 @@ from .base import SingleValueBindableUi, _bind_color
 from ..utils import convert_kws_ref2value
 
 
-_BUTTON_ALIGNMENT = Literal['left', 'right', 'around', 'between']
+_BUTTON_ALIGNMENT = Literal['left', 'right', 'around', 'between', 'evenly']
 
 
 class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):

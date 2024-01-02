@@ -1,4 +1,3 @@
-# ;:
 from typing import Any, Callable, Optional, TypeVar
 from signe import effect
 from nicegui import ui

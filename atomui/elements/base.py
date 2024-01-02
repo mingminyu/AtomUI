@@ -1,4 +1,3 @@
-# coding: utf8
 from __future__ import annotations
 from typing import Any, Callable, List, Optional
 from typing import TypeVar, Generic, cast, overload

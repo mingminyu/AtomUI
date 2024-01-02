@@ -1,4 +1,3 @@
-# coding: utf8
 import asyncio
 from signe import effect
 from nicegui import ui

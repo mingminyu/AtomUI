@@ -1,4 +1,3 @@
-# coding: utf8
 from pathlib import Path
 from typing import Union
 from signe import effect

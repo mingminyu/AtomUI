@@ -1,4 +1,3 @@
-# coding: utf8
 from nicegui import ui
 from .base import BindableUi
 

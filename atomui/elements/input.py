@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Any, Callable, List, Optional, Dict, Union
 from typing_extensions import Literal
 from nicegui import ui

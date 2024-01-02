@@ -1,4 +1,3 @@
-# coding: utf8
 from typing_extensions import Literal
 from signe import effect
 from nicegui import ui

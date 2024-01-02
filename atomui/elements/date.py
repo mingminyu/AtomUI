@@ -1,4 +1,3 @@
-# coding: utf8
 from typing import Any, Callable, List, Optional, TypeVar, cast
 from typing_extensions import TypedDict
 from nicegui import ui
