@@ -31,7 +31,7 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
             dense: Optional[TMaybeRef[bool]] = False,
             standout: Union[TMaybeRef[bool], TMaybeRef[str]] = False,
             borderless: Optional[TMaybeRef[bool]] = False,
-            shape: Optional[TMaybeRef[Literal['round', 'rounded', 'square']]] = None,
+            shape: Optional[TMaybeRef[Literal['rounded', 'square']]] = None,
             stack_label: Optional[TMaybeRef[bool]] = False,
             bottom_slots: Optional[TMaybeRef[bool]] = False,
             counter: Optional[TMaybeRef[bool]] = False,

@@ -13,5 +13,7 @@ setup(
         "nicegui",
         "signe",
         "pandas",
+        "fastapi",
+        "markdown-it-py",
     ],
 )

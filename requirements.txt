@@ -2,3 +2,4 @@ nicegui
 signe
 fastapi
 pandas
+markdown-it-py
