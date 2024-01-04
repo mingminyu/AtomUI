@@ -43,7 +43,7 @@ class Router:
                 if helpers.is_coroutine_function(builder):
                     await result
 
-        # self.content.clear()
+        self.content.clear()
         background_tasks.create(build())
         self.current_path = path  # 记录当前URL
 

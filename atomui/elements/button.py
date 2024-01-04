@@ -18,7 +18,6 @@ class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
             on_click: Optional[Callable[..., Any]] = None,
             color: Optional[TMaybeRef[str]] = "primary",
             icon: Optional[TMaybeRef[str]] = None,
-            # user add
             icon_right: Optional[TMaybeRef[str]] = None,
             text_color: Optional[TMaybeRef[str]] = None,
             glossy: Optional[TMaybeRef[bool]] = False,

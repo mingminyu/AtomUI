@@ -19,7 +19,6 @@ class ToggleBindableUi(SingleValueBindableUi[str, ui.toggle]):
             value: Optional[TMaybeRef[Any]] = None,
             on_change: Optional[Callable[..., Any]] = None,
             clearable: Optional[TMaybeRef[bool]] = False,
-            # user add
             color: Optional[TMaybeRef[str]] = None,
             disable: Optional[TMaybeRef[bool]] = False,
             dense: Optional[TMaybeRef[bool]] = False,
@@ -37,7 +36,7 @@ class ToggleBindableUi(SingleValueBindableUi[str, ui.toggle]):
             size: Optional[TMaybeRef[str]] = None,
             stack: Optional[TMaybeRef[bool]] = False,
             stretch: Optional[TMaybeRef[bool]] = False,
-            shape: Optional[TMaybeRef[Literal['round', 'rounded', 'square']]] = None,
+            rounded: Optional[TMaybeRef[bool]] = False,
             text_color: Optional[TMaybeRef[str]] = None,
             toggle_color: Optional[TMaybeRef[str]] = "primary",
             toggle_text_color: Optional[TMaybeRef[str]] = None,
@@ -55,12 +54,30 @@ class ToggleBindableUi(SingleValueBindableUi[str, ui.toggle]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         kws_extra = {
-            "toggle-color": toggle_color,
+            "color": color,
+            "disable": disable,
+            "dense": dense,
+            "flex": flex,
+            "flat": flat,
+            "glossy": glossy,
+            "no-caps": no_caps,
+            "no-wrap": no_wrap,
+            "outline": outline,
+            "push": push,
+            "padding": padding,
+            "readonly": readonly,
+            "ripple": ripple,
             "spread": spread,
-            "flex": flex
+            "size": size,
+            "stack": stack,
+            "stretch": stretch,
+            "rounded": rounded,
+            "text-color": text_color,
+            "toggle-text-color": toggle_text_color,
+            "toggle-color": toggle_color,
         }
 
         for key, value in kws_extra.items():
@@ -70,7 +87,4 @@ class ToggleBindableUi(SingleValueBindableUi[str, ui.toggle]):
                 self.element._props[key] = value
 
     def bind_prop(self, prop: str, ref_ui: ReadonlyRef):
-        if prop == "value":
-            return self.bind_value(ref_ui)
-
         return super().bind_prop(prop, ref_ui)

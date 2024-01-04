@@ -4,8 +4,8 @@ from typing import Optional, Literal
 
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
-from .base import SingleValueBindableUi, _bind_color
 from ..utils import convert_kws_ref2value
+from .base import SingleValueBindableUi, _bind_color
 
 
 class BadgeBindableUi(SingleValueBindableUi[str, ui.badge]):
@@ -34,7 +34,7 @@ class BadgeBindableUi(SingleValueBindableUi[str, ui.badge]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         kws_extra = {
             "align": align,
