@@ -1,8 +1,9 @@
 from nicegui import ui
 from typing import Optional, Literal
-from ..utils.signals import ReadonlyRef, is_ref
+from ..utils.signals import ReadonlyRef, is_ref, effect
 from ..utils.signals import _TMaybeRef as TMaybeRef
 from .base import BindableUi
+from .base import SingleValueBindableUi, _bind_color
 
 
 class CardBindableUi(BindableUi[ui.card]):
@@ -42,7 +43,7 @@ class CardBindableUi(BindableUi[ui.card]):
 class CardSectionBindableUi(BindableUi[ui.card_section]):
     def __init__(
         self,
-        horizontal: Optional[TMaybeRef[bool]] = False
+        horizontal: Optional[TMaybeRef[bool]] = False,
     ) -> None:
         element = ui.card_section()
         super().__init__(element)
@@ -59,6 +60,14 @@ class CardSectionBindableUi(BindableUi[ui.card_section]):
 
     def bind_prop(self, prop: str, ref_ui: ReadonlyRef):
         return super().bind_prop(prop, ref_ui)
+
+    def bind_bg_color(self, ref_ui: ReadonlyRef):
+        @effect
+        def _():
+            self.element.classes(replace=ref_ui.value)
+            self.element.update()
+
+        return self
 
 
 _CARD_ACTIONS_ALIGNMENT = Literal['left', 'center', 'right', 'between', 'around', 'evenly', 'stretch']
@@ -86,3 +95,10 @@ class CardActionsBindableUi(BindableUi[ui.card_actions]):
 
     def bind_prop(self, prop: str, ref_ui: ReadonlyRef):
         return super().bind_prop(prop, ref_ui)
+
+
+class ChatEditCard(CardBindableUi):
+    """ChatGPT 风格的编辑卡片"""
+    def __init__(self):
+        super().__init__()
+

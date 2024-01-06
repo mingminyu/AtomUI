@@ -1,5 +1,9 @@
-from typing import Callable, Dict, Union
+from typing import Callable, Dict, Union, Optional
 from nicegui import background_tasks, ui, helpers
+from functools import partial
+from atomui import to_ref
+from ..utils.signals import ReadonlyRef, is_ref, effect
+from ..utils.signals import _TMaybeRef as TMaybeRef
 
 
 """
@@ -15,7 +19,7 @@ class Router:
     def __init__(self) -> None:
         self.routes: Dict[str, Callable] = {}
         self.content: ui.element = None
-        self.current_path: str = '/'
+        self.curr_path: Optional[TMaybeRef[str]] = to_ref('/')
 
     def add(self, path: str):
         def decorator(func: Callable):
@@ -23,8 +27,15 @@ class Router:
             return func
         return decorator
 
-    def open(self, target: Union[Callable, str]) -> None:
+    def add_parameters_url(self, path: str, func: Callable):
+        self.routes[path] = partial(func, uid=path)
+
+
+    def open(self, target: Union[Callable, str], func: Optional[Callable] = None) -> None:
         if isinstance(target, str):
+            if target not in self.routes and func is not None:
+                self.add_parameters_url(target, func)
+
             path = target if target in self.routes.keys() else "/"
             builder = self.routes[path]  # 如果未找到路径，则重定向的到首页
         else:
@@ -45,7 +56,7 @@ class Router:
 
         self.content.clear()
         background_tasks.create(build())
-        self.current_path = path  # 记录当前URL
+        self.curr_path.value = path  # 记录当前URL
 
     def frame(self) -> ui.element:
         self.content = RouterFrame().on('open', lambda e: self.open(e.args))

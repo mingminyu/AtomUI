@@ -35,7 +35,10 @@ class MenuBindableUi(BindableUi[ui.menu]):
             touch_position: Optional[TMaybeRef[bool]] = None,
             transition_show: Optional[TMaybeRef[str]] = None,
             transition_hide: Optional[TMaybeRef[str]] = None,
-            transition_duration: Optional[Union[str, int]] = 300
+            transition_duration: Optional[Union[str, int]] = 300,
+            dense: Optional[TMaybeRef[bool]] = False,
+            flat: Optional[TMaybeRef[bool]] = False,
+
     ) -> None:
         kws = {"value": value}
         value_kws = convert_kws_ref2value(kws)
@@ -68,7 +71,9 @@ class MenuBindableUi(BindableUi[ui.menu]):
             "touch-position": touch_position,
             "transition-show": transition_show,
             "transition-hide": transition_hide,
-            "transition-duration": transition_duration
+            "transition-duration": transition_duration,
+            "dense": dense,
+            "flat": flat
         }
 
         for key, value in kws_extra.items():
@@ -108,6 +113,7 @@ class MenuItemBindableUi(BindableUi[ui.menu_item]):
             disable: Optional[TMaybeRef[bool]] = False,
             dark: Optional[TMaybeRef[bool]] = False,
             dense: Optional[TMaybeRef[bool]] = False,
+            flat: Optional[TMaybeRef[bool]] = False,
             focused: Optional[TMaybeRef[bool]] = False,
             manual_focus: Optional[TMaybeRef[bool]] = False,
             insert_level: Optional[TMaybeRef[int]] = None
@@ -133,7 +139,8 @@ class MenuItemBindableUi(BindableUi[ui.menu_item]):
             "dense": dense,
             "focused": focused,
             "manual-focus": manual_focus,
-            "insert-level": insert_level
+            "insert-level": insert_level,
+            "flat": flat
         }
 
         for key, value in kws_extra.items():

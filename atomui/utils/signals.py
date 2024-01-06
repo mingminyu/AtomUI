@@ -44,6 +44,11 @@ class Ref(ReadonlyRef[T]):
         self.___setter(value)
 
 
+    def set_value(self, value: T):
+        self.___setter(value)
+
+
+
 class DescReadonlyRef(ReadonlyRef[T]):
     def __init__(self, getter: Callable[[], T], desc="") -> None:
         super().__init__(getter)
@@ -187,17 +192,21 @@ def ref_computed(
         getter = computed(fn, **kws, scope=_CLIENT_SCOPE_MANAGER.get_scope())
         return cast(DescReadonlyRef[T], DescReadonlyRef(getter, desc))
     else:
+        def wrap(func: Callable[[], T]):
+            return ref_computed(func, **kws)
 
-        def wrap(fn: Callable[[], T]):
-            return ref_computed(fn, **kws)
-
-        return wrap
+        return wrap(func=fn)
 
 
 class EffectRefreshable:
     def __init__(
-        self, fn: Callable, refs: Union[ReadonlyRef, Sequence[ReadonlyRef]] = []
+        self,
+        fn: Callable,
+        refs: Union[ReadonlyRef, Sequence[ReadonlyRef]] = None
     ) -> None:
+        if refs is None:
+            refs = []
+
         self._fn = fn
         self._refs = refs if isinstance(refs, Sequence) else [refs]
         self()

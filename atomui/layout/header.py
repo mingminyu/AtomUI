@@ -28,7 +28,7 @@ def chat_header(left_drawer: DrawerBindableUi):
 
         with ui.row().classes("items-center justify-center self-end bg-white"):
             with webui.chip(color="stone-50").classes('text-white-10'):
-                webui.avatar(icon="img:static/avatar/default.png", color='blue-2')
+                webui.avatar(icon="img:/static/avatar/default.png", color='blue-2')
                 ui.label('draven').classes('font-bold')
                 webui.badge('3', color='red', floating=True).props('dense')
 

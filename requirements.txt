@@ -1,5 +1,6 @@
 nicegui
 signe
 fastapi
+pydantic
 pandas
 markdown-it-py

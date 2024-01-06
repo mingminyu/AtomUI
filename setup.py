@@ -15,5 +15,6 @@ setup(
         "pandas",
         "fastapi",
         "markdown-it-py",
+        "pydantic",
     ],
 )

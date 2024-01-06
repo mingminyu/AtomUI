@@ -86,6 +86,9 @@ class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
             "stretch": stretch,
             "text-color": text_color,
             "unelevated": unelevated,
+            "to": to,
+            "href": href,
+            "new-tab": new_tab
         }
 
         if shape is not None:

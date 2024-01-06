@@ -1,4 +1,3 @@
-# coding: utf-8
 import asyncio
 from nicegui import ui
 from atomui.utils.signals import Ref
