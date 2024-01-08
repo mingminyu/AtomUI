@@ -116,13 +116,13 @@ class ChatEditCard(CardBindableUi):
         self.__click_callback: Optional[Callable[[], None]] = None
         self.__dblclick_callback: Optional[Callable[[], None]] = None
 
-        with self.tight().classes('w-full justify-around bg-slate-700 h-8 gap-0 p-0 cursor-pointer'):
+        with self.tight().classes('w-full justify-around bg-slate-700 h-8 gap-0 py-0 cursor-pointer'):
             # chat-card 为自定义类名
             active_card_css = ref_computed(
                 lambda: "chat-card bg-red-2 pl-1"
                 if curr_chat_id.value == f"/c/{chat_id}" else "chat-card bg-blue-2 pl-1"
             )
-            self.card_sec = CardSectionBindableUi(horizontal=True).classes("chat-card w-full h-8 gap-0 pl-1")
+            self.card_sec = CardSectionBindableUi(horizontal=True).classes("chat-card w-full h-8 gap-0 py-0 pl-1")
             self.card_sec.bind_bg_color(active_card_css)
 
             with self.card_sec:

@@ -29,7 +29,7 @@ def chat_message_card(chat_message: ChatMessage):
         avatar = "img:/static/avatar/logo.svg"
 
     with ui.row(wrap=True).classes('w-full flex justify-center self-center'):
-        with webui.card(bordered=False).classes('w-full items-center self-center max-w-4xl my-0 no-shadow'):
+        with webui.card(bordered=False).classes('w-full items-center self-center max-w-4xl my-0 py-0 no-shadow'):
             with webui.card_section(horizontal=True).classes('w-full gap-0 pr-8'):
                 webui.avatar(avatar, color=None).props('dense flat gap-0')
 

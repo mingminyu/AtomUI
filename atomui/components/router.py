@@ -27,8 +27,8 @@ class Router:
             return func
         return decorator
 
-    def add_parameters_url(self, path: str, func: Callable):
-        self.routes[path] = partial(func, uid=path)
+    def add_parameters_url(self, chat_id: str, func: Callable):
+        self.routes[chat_id] = partial(func, chat_id=chat_id)
 
 
     def open(self, target: Union[Callable, str], func: Optional[Callable] = None) -> None:
