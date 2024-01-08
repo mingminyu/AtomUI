@@ -11,7 +11,8 @@ md_parser = MarkdownParser()
 def chat_greet(show_ref: ReadonlyRef):
     # 针对 `landscape`(横屏) 和 `portrait`(竖屏) 分别设置
     with ui.column().classes(
-        'items-center self-center gap-0 mb-0 md:pt-[10%] landscape:pt-[5%] portrait:pt-[60%]'
+        'w-full flex justify-center items-center justify-self-center gap-0 mb-0 '
+        'md:pt-[100px] lg:pt-[100px] portrait:pt-[500px]'
     ) as home_greet:
         ui.avatar(
             icon="img:/static/avatar/logo.svg", size="100px", color="white"
@@ -27,12 +28,10 @@ def chat_message_card(chat_message: ChatMessage):
     else:
         avatar = "img:/static/avatar/logo.svg"
 
-    with ui.row(wrap=True).classes(
-        'w-full items-center self-center w-[900px] max-w-8xl landscape:mx-60 portrait:mx-40 gap-0'
-    ):
-        with webui.card(bordered=False).classes('w-full min-w-3xl max-w-4xl my-1 no-shadow'):
-            with webui.card_section(horizontal=True):
-                webui.avatar(avatar, color=None).props('dense flat')
+    with ui.row(wrap=True).classes('w-full flex justify-center self-center'):
+        with webui.card(bordered=False).classes('w-full items-center self-center max-w-4xl my-0 no-shadow'):
+            with webui.card_section(horizontal=True).classes('w-full gap-0 pr-8'):
+                webui.avatar(avatar, color=None).props('dense flat gap-0')
 
                 with ui.column().classes('self-center pr-8'):
                     for message_token in md_parser.split_code_block_content(chat_message.value):

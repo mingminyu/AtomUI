@@ -1,10 +1,11 @@
 from .markdown import markdown_content_example
 
-chat_conversation_example = [
+chat_conversations_example = [
     {
+        "user": "draven",
         "cid": "c1",
-        "title": "Hello World1",
-        "date": "2023-01-05",
+        "title": "Today Chat",
+        "date": "2023-01-08",
         "conversation": [
             {
                 "role": "user",
@@ -17,9 +18,10 @@ chat_conversation_example = [
         ]
     },
     {
+        "user": "draven",
         "cid": "c2",
-        "title": "Hello World2",
-        "date": "2024-01-05",
+        "title": "Markdown Display",
+        "date": "2024-01-07",
         "conversation": [
             {
                 "role": "user",
@@ -32,13 +34,30 @@ chat_conversation_example = [
         ]
     },
     {
+        "user": "draven",
         "cid": "c3",
-        "title": "Hello World3",
-        "date": "2024-01-04",
+        "title": "Recent 30 Days",
+        "date": "2023-12-20",
         "conversation": [
             {
                 "role": "user",
-                "value": "Hello World2"
+                "value": "Hello Atom, what day is it today?"
+            },
+            {
+                "role": "assistant",
+                "value": "Today is 2023-12-20"
+            },
+        ]
+    },
+    {
+        "user": "draven",
+        "cid": "c4",
+        "title": "Previous 31+ Days",
+        "date": "2023-01-01",
+        "conversation": [
+            {
+                "role": "user",
+                "value": "Hello World"
             },
             {
                 "role": "assistant",
@@ -46,19 +65,5 @@ chat_conversation_example = [
             },
         ]
     },
-    {
-        "cid": "c3",
-        "title": "Hello World3",
-        "date": "2024-01-01",
-        "conversation": [
-            {
-                "from": "user",
-                "value": "Hello World3"
-            },
-            {
-                "from": "assistant",
-                "value": "I'm AtomGPT, Can I help you?"
-            },
-        ]
-    },
 ]
+

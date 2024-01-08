@@ -31,7 +31,8 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
             dense: Optional[TMaybeRef[bool]] = False,
             standout: Union[TMaybeRef[bool], TMaybeRef[str]] = False,
             borderless: Optional[TMaybeRef[bool]] = False,
-            shape: Optional[TMaybeRef[Literal['rounded', 'square']]] = None,
+            rounded: Optional[TMaybeRef[bool]] = False,
+            square: Optional[TMaybeRef[bool]] = False,
             stack_label: Optional[TMaybeRef[bool]] = False,
             bottom_slots: Optional[TMaybeRef[bool]] = False,
             counter: Optional[TMaybeRef[bool]] = False,
@@ -142,10 +143,9 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
             "stack-label": stack_label,
             "shadow-text": shadow_text,
             "unmasked-value": unmasked_value,
+            "square": square,
+            "rounded": rounded
         }
-
-        if shape is not None:
-            kws_extra.update({shape: True})
 
         for key, value in kws_extra.items():
             if is_ref(value):

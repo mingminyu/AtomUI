@@ -1,14 +1,14 @@
 from typing import Any, Dict, TypeVar, Generic, overload, Optional
 from typing import Callable, cast, Union, Sequence
+from nicegui import ui
 from signe import computed
 from signe import on as signe_on
 from signe import effect as signe_effect
 from signe.core.signal import Signal, SignalOption
 from signe.core.effect import Effect
 from signe import utils as signe_utils
-from .client_scope import BGClientScopeManager
 from signe.types import TSetter, TGetter
-from nicegui import ui
+from .client_scope import BGClientScopeManager
 
 
 T = TypeVar("T")
@@ -22,9 +22,6 @@ class ReadonlyRef(Generic[T]):
     @property
     def value(self):
         return self.___getter()
-
-    # def __repr__(self) -> str:
-    #     return str(self.value)
 
 
 class Ref(ReadonlyRef[T]):

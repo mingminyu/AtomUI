@@ -1,6 +1,7 @@
 import asyncio
-from typing import Callable, List, Optional
+from typing import Callable, List, Optional, Union
 from nicegui import ui
+from ..elements.base import BindableUi
 
 
 class FreeClick:
@@ -11,7 +12,7 @@ class FreeClick:
         self.click_callbacks: List[Callable[[], None]] = []
         self.dblclick_callbacks: List[Callable[[], None]] = []
 
-    def apply(self, element: ui.element):
+    def apply(self, element: Union[ui.element, BindableUi]):
         async def one_click():
             if self.click_task:
                 self.click_task.cancel()
