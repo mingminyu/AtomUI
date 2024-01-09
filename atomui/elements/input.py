@@ -1,7 +1,6 @@
-from typing import Any, Callable, List, Optional, Dict, Union
-from typing_extensions import Literal
 from nicegui import ui
 from signe import effect
+from typing import Any, Callable, List, Optional, Dict, Union
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
 from .base import SingleValueBindableUi
@@ -221,7 +220,7 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
             ele.value = self.value
 
         def on_model_value_changed(e):
-            self._ref.value = e.args or ""  # type: ignore
+            self._ref.value = e.args or ""
 
         ele.on("update:modelValue", handler=on_model_value_changed)
 

@@ -1,8 +1,6 @@
-import os.path
-
 from nicegui import ui
 from atomui import webui
-from atomui import ref_computed, to_ref
+from atomui import to_ref
 from atomui.components.router import Router
 from atomui.mock.chat_conversation import chat_conversations_example
 from atomui.models.chat import ChatCard
@@ -20,7 +18,7 @@ def chat_main(chat_id: str):
 
 
 def chat_sidebar_card(chat_card: ChatCard, router: Router):
-    webui.chat_edit_card(
+    return webui.chat_edit_card(
         chat_card.title, show_input=to_ref(False),
         chat_id=chat_card.cid, curr_chat_id=router.curr_path,
         on_click=lambda: router.open(f'/c/{chat_card.cid}', chat_main)
@@ -28,7 +26,7 @@ def chat_sidebar_card(chat_card: ChatCard, router: Router):
 
 
 def chat_sidebar(router: Router) -> webui.drawer:
-    with (webui.drawer(
+    with webui.drawer(
             side="left",
             value=True,
             top_corner=True,
@@ -39,7 +37,7 @@ def chat_sidebar(router: Router) -> webui.drawer:
             overlay=False,
             show_if_above=False,
             width="260",
-    ).classes('bg-slate-700') as left_drawer):
+    ).classes('bg-slate-700') as left_drawer:
         with ui.row().classes('items-center justify-center'):
             webui.button(
                 "New Chat", icon="img:/static/avatar/logo.svg",

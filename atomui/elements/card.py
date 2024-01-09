@@ -1,12 +1,13 @@
 from nicegui import ui
 from typing import Optional, Literal, Callable, Any
+
 from .base import BindableUi
-from ..utils.signals import ReadonlyRef, is_ref, effect, ref_computed, to_ref
-from ..utils.signals import _TMaybeRef as TMaybeRef
-from ..utils.click import FreeClick
 from .button import ButtonBindableUi
 from .input import InputBindableUi
 from .menu import MenuBindableUi, MenuItemBindableUi
+from ..utils.signals import ReadonlyRef, is_ref, effect, ref_computed, to_ref
+from ..utils.signals import _TMaybeRef as TMaybeRef
+from ..utils.click import FreeClick
 
 
 class CardBindableUi(BindableUi[ui.card]):
@@ -108,15 +109,17 @@ class ChatEditCard(CardBindableUi):
         on_click: Optional[Callable[..., Any]] = None,
         on_dblclick: Optional[Callable[..., Any]] = None,
         show_input: Optional[TMaybeRef[bool]] = to_ref(False),
+        input_clearable: Optional[TMaybeRef[bool]] = to_ref(True),
         chat_id: Optional[str] = None,
         curr_chat_id: Optional[TMaybeRef[str]] = None,
     ):
         super().__init__(flat=True)
         self.sess_id = chat_id
+        # self.input_clearable = input_clearable
         self.__click_callback: Optional[Callable[[], None]] = None
         self.__dblclick_callback: Optional[Callable[[], None]] = None
 
-        with self.tight().classes('w-full justify-around bg-slate-700 h-8 gap-0 py-0 cursor-pointer'):
+        with self.tight().classes('w-full justify-around bg-slate-700 h-8 gap-1 py-0 cursor-pointer'):
             # chat-card 为自定义类名
             active_card_css = ref_computed(
                 lambda: "chat-card bg-red-2 pl-1"
@@ -135,7 +138,7 @@ class ChatEditCard(CardBindableUi):
                 self._input = InputBindableUi(
                     value=title, dense=True, color="grey-6", flat=True, square=True,
                     bg_color='grey-6', input_class="text-white", clear_icon='close',
-                    standout="text-white", clearable=True
+                    standout="text-white", clearable=input_clearable
                 ).classes('w-48 h-8 text-xs gap-0')
                 self._input.bind_visible(show_input)
 
@@ -149,11 +152,11 @@ class ChatEditCard(CardBindableUi):
 
                 self._btn.element.bind_text(self._input, 'value')
 
-
-            disable_class = "pointer-events-none bg-grey-6"
-
             def disable_input():
+                disable_class = "pointer-events-none bg-grey-6"
                 self._input.classes(disable_class)
+                input_clearable.value = False
+
 
             # 焦点离开或按回车，输入框就禁用吧
             self._input.on("blur", disable_input).on(
@@ -170,6 +173,8 @@ class ChatEditCard(CardBindableUi):
         @fc.on_dblclick
         def _():
             show_input.value = True
+            input_clearable.value = True
+
             if on_dblclick:
                 on_dblclick()
 

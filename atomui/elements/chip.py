@@ -1,17 +1,16 @@
 import asyncio
-from typing import Any, Callable, Optional, Literal, Union
-from ..utils.signals import ReadonlyRef, is_ref
-from ..utils.signals import _TMaybeRef as TMaybeRef
 from signe import effect
-from .base import SingleValueBindableUi, _bind_color
-from ..utils import convert_kws_ref2value
-
 from nicegui.events import ClickEventArguments, handle_event
 from nicegui.elements.mixins.color_elements import BackgroundColorElement
 from nicegui.elements.mixins.disableable_element import DisableableElement
 from nicegui.elements.mixins.text_element import TextElement
 
-# user add for this chip element
+from typing import Any, Callable, Optional
+from .base import SingleValueBindableUi, _bind_color
+from ..utils.signals import ReadonlyRef, is_ref
+from ..utils import convert_kws_ref2value
+from ..utils.signals import _TMaybeRef as TMaybeRef
+
 
 
 class Chip(TextElement, DisableableElement, BackgroundColorElement):

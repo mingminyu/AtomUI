@@ -19,7 +19,7 @@ class RadioBindableUi(SingleValueBindableUi[bool, ui.radio]):
     @staticmethod
     def _setup_(binder: "RadioBindableUi"):
         def on_value_changed(e):
-            binder._ref.value = binder.element.options[e.args]  # type: ignore
+            binder._ref.value = binder.element.options[e.args]
 
         @effect
         def _():
@@ -94,6 +94,6 @@ class RadioBindableUi(SingleValueBindableUi[bool, ui.radio]):
     def bind_value(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            cast(ValueElement, self.element).on_value_change(ref_ui.value)
+            cast(ValueElement, self.element).set_value(ref_ui.value)
 
         return self

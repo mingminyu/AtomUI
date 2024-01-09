@@ -2,10 +2,10 @@ from nicegui import ui
 from signe import effect
 from typing import Optional, Literal
 
+from .base import SingleValueBindableUi, _bind_color
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
 from ..utils import convert_kws_ref2value
-from .base import SingleValueBindableUi, _bind_color
 
 
 class BadgeBindableUi(SingleValueBindableUi[str, ui.badge]):

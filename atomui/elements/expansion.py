@@ -14,7 +14,6 @@ class ExpansionBindableUi(SingleValueBindableUi[bool, ui.expansion]):
         icon: Optional[TMaybeRef[str]] = None,
         value: TMaybeRef[bool] = False,
         on_value_change: Optional[Callable[..., None]] = None,
-        # user add
         caption: Optional[TMaybeRef[str]] = None,
         caption_lines: Optional[TMaybeRef[Union[int, str]]] = None,
         content_insert_level: Optional[TMaybeRef[str]] = None,

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Union
+from typing import Any, Callable, Optional
 from signe import effect
 from nicegui import ui
 from .base import SingleValueBindableUi

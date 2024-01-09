@@ -13,6 +13,7 @@ from ..utils import convert_kws_ref2value
 class TableBindableUi(BindableUi[ui.table]):
     def __init__(
         self,
+        *,
         columns: TMaybeRef[List[Dict]],
         rows: TMaybeRef[List[Dict]],
         row_key: TMaybeRef[str] = "id",
@@ -90,7 +91,7 @@ class TableBindableUi(BindableUi[ui.table]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         self._arg_selection = selection
         self._arg_row_key = row_key
@@ -100,8 +101,8 @@ class TableBindableUi(BindableUi[ui.table]):
             "fullscreen": fullscreen,
             "no-route-fullscreen-exit": no_route_fullscreen_exit,
             "virtual-scroll-target": virtual_scroll_target,
-            "virtual_scroll_sticky_size_start": virtual_scroll_sticky_size_start,
-            "virtual_scroll_sticky_size_end": virtual_scroll_sticky_size_end,
+            "virtual-scroll-sticky-size-start": virtual_scroll_sticky_size_start,
+            "virtual-scroll-sticky-size-end": virtual_scroll_sticky_size_end,
             "grid": grid,
             "grid-header": grid_header,
             "loading": loading,
@@ -154,7 +155,6 @@ class TableBindableUi(BindableUi[ui.table]):
                 self.bind_prop(key, value)
             elif value:
                 self.element._props[key] = value
-
 
     @property
     def selection_ref(self):

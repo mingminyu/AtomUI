@@ -32,11 +32,14 @@ def chat_header(left_drawer: DrawerBindableUi):
                 ui.label('draven').classes('font-bold')
                 webui.badge('3', color='red', floating=True).props('dense')
 
-                with webui.menu().style('width: 150px'):
+                with webui.menu(dense=True, flat=True, fit=True).classes('user-setting w-28'):
+                    webui.button(
+                        "Instructions", icon="library_books", color="zinc-50", flat=True, align='left', dense=True
+                    ).classes('w-full self-center font-normal text-xs')
                     webui.button(
                         "Settings", icon="settings", color="zinc-50", flat=True, align='left', dense=True
-                    ).classes('w-full self-center font-normal')
+                    ).classes('w-full self-center font-normal text-xs')
                     ui.separator()
                     webui.button(
                         "Logout", icon="logout", color="zinc-50", flat=True, align='left', dense=True
-                    ).classes('w-full self-center font-normal')
+                    ).classes('w-full self-center font-normal text-xs')

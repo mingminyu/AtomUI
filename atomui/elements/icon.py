@@ -1,6 +1,6 @@
-from typing import Optional, cast
-from signe import effect
 from nicegui import ui
+from signe import effect
+from typing import Optional, cast
 from nicegui.elements.mixins.color_elements import TextColorElement
 from .base import SingleValueBindableUi, _bind_color
 from ..utils import convert_kws_ref2value
@@ -15,7 +15,6 @@ class IconBindableUi(SingleValueBindableUi[str, ui.icon]):
             *,
             size: Optional[TMaybeRef[str]] = None,
             color: Optional[TMaybeRef[str]] = None,
-            # user add
             left: Optional[TMaybeRef[str]] = False,
             right: Optional[TMaybeRef[str]] = False,
     ) -> None:
@@ -30,7 +29,18 @@ class IconBindableUi(SingleValueBindableUi[str, ui.icon]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
+
+        kws_extra = {
+            "left": left,
+            "right": right,
+        }
+
+        for key, value in kws_extra.items():
+            if is_ref(value):
+                self.bind_prop(key, value)
+            elif value:
+                self.element._props[key] = value
 
     def bind_prop(self, prop: str, ref_ui: ReadonlyRef):
         if prop == "name":
