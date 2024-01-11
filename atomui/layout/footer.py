@@ -13,7 +13,7 @@ def chat_footer():
         else:
             send_disabled.value = False
 
-    with ui.footer().classes('bg-white'), ui.column().classes('w-full max-w-4xl mx-auto my-6'):
+    with webui.footer().classes('bg-white'), ui.column().classes('w-full max-w-4xl mx-auto my-6'):
         with ui.row().classes('w-full items-end content-end'):
             chat_box = webui.input(
                 placeholder="Message AtomGPT", outlined=True, input_class='mx-3', autogrow=True, item_aligned=True,

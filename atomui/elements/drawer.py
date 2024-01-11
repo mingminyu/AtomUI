@@ -1,4 +1,4 @@
-from typing_extensions import Literal
+from typing_extensions import Literal, Optional
 from signe import effect
 from nicegui import ui
 from nicegui.page_layout import Drawer
@@ -14,7 +14,7 @@ _TDrawerSide = Literal["left", "right"]
 class DrawerBindableUi(SingleValueBindableUi[bool, Drawer]):
     def __init__(
             self,
-            side: _TDrawerSide = "left",
+            side: Optional[TMaybeRef[str]] = "left",
             *,
             value: TMaybeRef[bool] = True,
             fixed: TMaybeRef[bool] = False,
@@ -29,6 +29,10 @@ class DrawerBindableUi(SingleValueBindableUi[bool, Drawer]):
             mini: TMaybeRef[bool] = False,
             mini_to_overlay: TMaybeRef[bool] = False,
     ) -> None:
+        """Literal value of parameters
+
+        :param side: left/ right
+        """
         kws = {
             "value": value,
             "fixed": fixed,
@@ -39,7 +43,6 @@ class DrawerBindableUi(SingleValueBindableUi[bool, Drawer]):
         }
         value_kws = convert_kws_ref2value(kws)
 
-        ele = None
         if to_value(side) == "left":
             ele = ui.left_drawer(**value_kws)
         else:

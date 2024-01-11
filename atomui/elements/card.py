@@ -1,10 +1,10 @@
 from nicegui import ui
 from typing import Optional, Literal, Callable, Any
 
-from .base import BindableUi
 from .button import ButtonBindableUi
 from .input import InputBindableUi
 from .menu import MenuBindableUi, MenuItemBindableUi
+from .base import BindableUi
 from ..utils.signals import ReadonlyRef, is_ref, effect, ref_computed, to_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
 from ..utils.click import FreeClick
@@ -80,9 +80,14 @@ _CARD_ACTIONS_ALIGNMENT = Literal['left', 'center', 'right', 'between', 'around'
 class CardActionsBindableUi(BindableUi[ui.card_actions]):
     def __init__(
         self,
-        align: Optional[TMaybeRef[_CARD_ACTIONS_ALIGNMENT]] = None,
+        align: Optional[TMaybeRef[str]] = None,
         vertical: Optional[TMaybeRef[bool]] = False
     ) -> None:
+        """Literal value of parameters
+
+        :param align:  left/ center/ right/ between/ evenly/ stretch
+        :param vertical:
+        """
         element = ui.card_actions()
         super().__init__(element)
 
@@ -179,6 +184,7 @@ class ChatEditCard(CardBindableUi):
                 on_dblclick()
 
             self._input.element.run_method("focus")
+
     @property
     def title(self):
         return self._input.value

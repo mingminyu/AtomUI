@@ -1,5 +1,5 @@
-from typing import Any, Callable, Optional
 from nicegui import ui
+from typing import Any, Callable, Optional
 from nicegui import events as ng_events
 from .base import SingleValueBindableUi
 from ..utils.signals import is_ref

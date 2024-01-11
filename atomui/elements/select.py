@@ -97,6 +97,6 @@ class SelectBindableUi(SingleValueBindableUi[T, ui.select]):
     def bind_value(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            cast(ValueElement, self.element).on_value_change(ref_ui.value)
+            cast(ValueElement, self.element).set_value(ref_ui.value)
 
         return self

@@ -1,83 +1,70 @@
+from datetime import datetime, timedelta
 from .markdown import markdown_content_example
 
 chat_conversations_example = [
     {
         "user": "draven",
         "cid": "c1",
-        "title": "Today Chat",
-        "date": "2024-01-09",
+        "title": "Greet",
+        "date": f"{datetime.now():%Y-%m-%d}",
         "conversation": [
             {
                 "role": "user",
-                "value": "Hello World"
+                "content": "Hello, Atom"
             },
             {
                 "role": "assistant",
-                "value": "I'm AtomGPT, Can I help you?"
+                "content": "I'm AtomGPT, Can I help you?"
             },
         ]
     },
     {
         "user": "draven",
         "cid": "c2",
-        "title": "Markdown Display",
-        "date": "2024-01-08",
+        "title": "Chat Markdown",
+        "date": f"{datetime.now() + timedelta(days=-1):%Y-%m-%d}",
         "conversation": [
             {
                 "role": "user",
-                "value": "Hello World"
+                "content": "Hello World"
             },
             {
                 "role": "assistant",
-                "value": markdown_content_example
+                "think": True,
+                "content": markdown_content_example
             },
         ]
     },
     {
         "user": "draven",
         "cid": "c3",
-        "title": "Recent 30 Days",
-        "date": "2023-12-20",
+        "title": "Chat Pyecharts",
+        "date": f"{datetime.now() + timedelta(days=-1):%Y-%m-%d}",
         "conversation": [
             {
                 "role": "user",
-                "value": "Hello Atom, what day is it today?"
+                "content": "Plotting a graph for atom documents."
             },
             {
                 "role": "assistant",
-                "value": "Today is 2023-12-20"
-            },
-        ]
-    },
-{
-        "user": "draven",
-        "cid": "c5",
-        "title": "Recent 30 Days",
-        "date": "2023-12-19",
-        "conversation": [
-            {
-                "role": "user",
-                "value": "Hello Atom, what day is it today?"
-            },
-            {
-                "role": "assistant",
-                "value": "Today is 2023-12-19"
+                "think": True,
+                "content": ""
             },
         ]
     },
     {
         "user": "draven",
         "cid": "c4",
-        "title": "Previous 31+ Days",
-        "date": "2023-01-01",
+        "title": "Recent 30 Days",
+        "date": f"{datetime.now() + timedelta(days=-20):%Y-%m-%d}",
         "conversation": [
             {
                 "role": "user",
-                "value": "Hello World"
+                "content": "Hello Atom, what day is it today?"
             },
             {
                 "role": "assistant",
-                "value": "I'm AtomGPT, Can I help you?"
+                "content": "Today is 2023-12-20"
             },
         ]
     },

@@ -1,5 +1,5 @@
 from nicegui import ui
 
 
-class Log(ui.log):
+class Audio(ui.audio):
     ...

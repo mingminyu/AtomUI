@@ -1,9 +1,9 @@
-from signe import effect
 from nicegui import ui
+from signe import effect
 from typing import Any, Callable, Optional, Literal, Union
+from .base import SingleValueBindableUi, _bind_color
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
-from .base import SingleValueBindableUi, _bind_color
 from ..utils import convert_kws_ref2value
 
 
@@ -12,42 +12,42 @@ _BUTTON_ALIGNMENT = Literal['left', 'right', 'around', 'between', 'evenly']
 
 class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
     def __init__(
-            self,
-            text: TMaybeRef[str] = "",
-            *,
-            on_click: Optional[Callable[..., Any]] = None,
-            color: Optional[TMaybeRef[str]] = "primary",
-            icon: Optional[TMaybeRef[str]] = None,
-            icon_right: Optional[TMaybeRef[str]] = None,
-            text_color: Optional[TMaybeRef[str]] = None,
-            glossy: Optional[TMaybeRef[bool]] = False,
-            flat: Optional[TMaybeRef[bool]] = False,
-            dense: Optional[TMaybeRef[bool]] = False,
-            stack: Optional[TMaybeRef[bool]] = False,
-            outline: Optional[TMaybeRef[bool]] = False,
-            shape: Optional[TMaybeRef[Literal['round', 'rounded', 'square']]] = None,
-            unelevated: Optional[TMaybeRef[bool]] = False,
-            no_caps: Optional[TMaybeRef[bool]] = False,
-            no_wrap: Optional[TMaybeRef[bool]] = False,
-            push: Optional[TMaybeRef[bool]] = False,
-            size: Optional[TMaybeRef[str]] = None,
-            align: Optional[TMaybeRef[_BUTTON_ALIGNMENT]] = None,
-            stretch: Optional[TMaybeRef[bool]] = False,
-            padding: Optional[TMaybeRef[str]] = None,
-            loading: Optional[TMaybeRef[bool]] = False,
-            percentage: Optional[TMaybeRef[int]] = None,
-            dark_percentage: Optional[TMaybeRef[bool]] = False,
-            disabled: Optional[TMaybeRef[bool]] = False,
-            fab: Optional[TMaybeRef[bool]] = False,
-            fab_mini: Optional[TMaybeRef[bool]] = False,
-            ripple: Optional[TMaybeRef[bool]] = False,
-            loading_icon: Optional[TMaybeRef[str]] = None,
-            loading_icon_color: Optional[Union[TMaybeRef[str], str]] = "primary",
-            loading_text: Optional[TMaybeRef[str]] = None,
-            loading_icon_left: Optional[TMaybeRef[bool]] = False,
-            to: Optional[TMaybeRef[str]] = None,
-            href: Optional[TMaybeRef[str]] = None,
-            new_tab: Optional[TMaybeRef[bool]] = False,
+        self,
+        text: TMaybeRef[str] = "",
+        *,
+        on_click: Optional[Callable[..., Any]] = None,
+        color: Optional[TMaybeRef[str]] = "primary",
+        icon: Optional[TMaybeRef[str]] = None,
+        icon_right: Optional[TMaybeRef[str]] = None,
+        text_color: Optional[TMaybeRef[str]] = None,
+        glossy: Optional[TMaybeRef[bool]] = False,
+        flat: Optional[TMaybeRef[bool]] = False,
+        dense: Optional[TMaybeRef[bool]] = False,
+        stack: Optional[TMaybeRef[bool]] = False,
+        outline: Optional[TMaybeRef[bool]] = False,
+        shape: Optional[TMaybeRef[Literal['round', 'rounded', 'square']]] = None,
+        unelevated: Optional[TMaybeRef[bool]] = False,
+        no_caps: Optional[TMaybeRef[bool]] = False,
+        no_wrap: Optional[TMaybeRef[bool]] = False,
+        push: Optional[TMaybeRef[bool]] = False,
+        size: Optional[TMaybeRef[str]] = None,
+        align: Optional[TMaybeRef[_BUTTON_ALIGNMENT]] = None,
+        stretch: Optional[TMaybeRef[bool]] = False,
+        padding: Optional[TMaybeRef[str]] = None,
+        loading: Optional[TMaybeRef[bool]] = False,
+        percentage: Optional[TMaybeRef[int]] = None,
+        dark_percentage: Optional[TMaybeRef[bool]] = False,
+        disabled: Optional[TMaybeRef[bool]] = False,
+        fab: Optional[TMaybeRef[bool]] = False,
+        fab_mini: Optional[TMaybeRef[bool]] = False,
+        ripple: Optional[TMaybeRef[bool]] = False,
+        loading_icon: Optional[TMaybeRef[str]] = None,
+        loading_icon_color: Optional[Union[TMaybeRef[str], str]] = "primary",
+        loading_text: Optional[TMaybeRef[str]] = None,
+        loading_icon_left: Optional[TMaybeRef[bool]] = False,
+        to: Optional[TMaybeRef[str]] = None,
+        href: Optional[TMaybeRef[str]] = None,
+        new_tab: Optional[TMaybeRef[bool]] = False,
     ) -> None:
         kws = {
             "text": text,
@@ -61,7 +61,7 @@ class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         kws_extra = {
             "align": align,
@@ -108,9 +108,11 @@ class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
         elif loading_icon and loading_text:
             with self.element.add_slot('loading', loading_text):
                 ui.spinner(loading_icon, color=loading_icon_color)
+
         elif loading_icon:
             with self.element.add_slot('loading'):
                 ui.spinner(loading_icon, color=loading_icon_color)
+
         elif loading_text:
             self.element.add_slot('loading', loading_text)
 
@@ -132,31 +134,31 @@ class ButtonBindableUi(SingleValueBindableUi[str, ui.button]):
     def bind_text(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            ele = self.element
-            ele._props["label"] = ref_ui.value
-            ele.update()
+            self.element._props["label"] = ref_ui.value
+            self.element.update()
 
         return self
 
     def bind_icon(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            ele = self.element
-            ele._props["icon"] = ref_ui.value
-            ele.update()
+            self.element._props["icon"] = ref_ui.value
+            self.element.update()
 
         return self
 
     def bind_enabled(self, ref_ui: ReadonlyRef[bool]):
         @effect
         def _():
-            self.element.on_enabled_change(ref_ui.value)
+            self.element.set_enabled(ref_ui.value)
+            self.element.update()
 
         return self
 
     def bind_disable(self, ref_ui: ReadonlyRef[bool]):
         @effect
         def _():
-            self.element.on_enabled_change(not ref_ui.value)
+            self.element.set_enabled(not ref_ui.value)
+            self.element.update()
 
         return self

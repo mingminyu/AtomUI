@@ -10,12 +10,6 @@ def sleep_task(number: int):
     time.sleep(number)
 
 
-"""
-ui.refreshable 默认是追加到之前元素后面，并不会清除之前的元素。
-想要每次点击按钮时，container 自动清除下面的内容，目前还未实现。
-"""
-
-
 def build_task_loading(message: str, is_done: bool = False):
     with ui.row():
         if is_done:

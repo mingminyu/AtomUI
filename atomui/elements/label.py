@@ -10,7 +10,7 @@ class LabelBindableUi(SingleValueBindableUi[str, ui.label]):
     @staticmethod
     def _setup_(binder: "LabelBindableUi"):
         def on_value_changed(e):
-            binder._ref.value = e.args["label"]  # type: ignore
+            binder._ref.value = e.args["label"]
 
         @effect
         def _():
@@ -31,7 +31,7 @@ class LabelBindableUi(SingleValueBindableUi[str, ui.label]):
 
         for key, value in kws.items():
             if is_ref(value):
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         LabelBindableUi._setup_(self)
 
@@ -47,10 +47,8 @@ class LabelBindableUi(SingleValueBindableUi[str, ui.label]):
     def bind_color(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            ele = self.element
-            color = ref_ui.value
-            ele._style["color"] = color
-            ele.update()
+            self.element._style["color"] = ref_ui.value
+            self.element.update()
 
     def bind_text(self, ref_ui: ReadonlyRef):
         @effect

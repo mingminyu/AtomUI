@@ -1,9 +1,9 @@
 from nicegui import ui
 from signe import effect
 from typing import Any, Callable, List, Optional, Dict, Union
+from .base import SingleValueBindableUi
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
-from .base import SingleValueBindableUi
 from ..utils import convert_kws_ref2value
 from atomui import webui
 
@@ -96,7 +96,7 @@ class InputBindableUi(SingleValueBindableUi[str, ui.input]):
 
         for key, value in kws.items():
             if is_ref(value) and key != "value":
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         kws_extra = {
             "autogrow": autogrow,

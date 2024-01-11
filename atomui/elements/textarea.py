@@ -1,6 +1,6 @@
-from typing import Any, Callable, Optional, Dict
-from signe import effect
 from nicegui import ui
+from signe import effect
+from typing import Any, Callable, Optional, Dict
 
 from .base import SingleValueBindableUi
 from ..utils.signals import ReadonlyRef, is_ref
@@ -31,7 +31,7 @@ class TextareaBindableUi(SingleValueBindableUi[str, ui.textarea]):
 
         for key, value in kws.items():
             if is_ref(value) and key != "value":
-                self.bind_prop(key, value)  # type: ignore
+                self.bind_prop(key, value)
 
         self._ex_setup()
 

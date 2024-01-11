@@ -27,16 +27,16 @@ def chat_sidebar_card(chat_card: ChatCard, router: Router):
 
 def chat_sidebar(router: Router) -> webui.drawer:
     with webui.drawer(
-            side="left",
-            value=True,
-            top_corner=True,
-            bottom_corner=True,
-            fixed=True,
-            bordered=True,
-            elevated=True,
-            overlay=False,
-            show_if_above=False,
-            width="260",
+        side="left",
+        value=True,
+        top_corner=True,
+        bottom_corner=True,
+        fixed=True,
+        bordered=True,
+        elevated=True,
+        overlay=False,
+        show_if_above=False,
+        width="260",
     ).classes('bg-slate-700') as left_drawer:
         with ui.row().classes('items-center justify-center'):
             webui.button(

@@ -1,6 +1,6 @@
-from typing import Any, Callable, Optional, TypeVar, cast
-from signe import effect
 from nicegui import ui
+from signe import effect
+from typing import Any, Callable, Optional, TypeVar, cast
 from nicegui.elements.mixins.value_element import ValueElement
 from .base import SingleValueBindableUi
 from ..utils.signals import ReadonlyRef, is_ref

@@ -1,6 +1,6 @@
 import asyncio
-from signe import effect
 from nicegui import ui
+from signe import effect
 from ..utils import convert_kws_ref2value
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
@@ -54,7 +54,5 @@ class HtmlBindableUi(SingleValueBindableUi[str, ui.html]):
     def bind_color(self, ref_ui: ReadonlyRef):
         @effect
         def _():
-            ele = self.element
-            color = ref_ui.value
-            ele._style["color"] = color
-            ele.update()
+            self.element._style["color"] = ref_ui.value
+            ref_ui.value.update()

@@ -1,7 +1,7 @@
-from typing import Any, Callable, List, Optional, TypeVar, cast
-from typing_extensions import TypedDict
 from nicegui import ui
 from signe import effect
+from typing_extensions import TypedDict
+from typing import Any, Callable, List, Optional, TypeVar
 from .base import SingleValueBindableUi
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef

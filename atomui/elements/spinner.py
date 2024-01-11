@@ -1,5 +1,5 @@
 from nicegui import ui
 
 
-class SpinnerBindableUi(ui.spinner):
+class Spinner(ui.spinner):
     ...

@@ -87,6 +87,6 @@ class ColorPickerLazyBindableUi(ColorPickerBindableUi):
         #     ele._props["modelValue"] = self.value
 
         def on_model_value_changed(e):
-            self._ref.value = e.args  # type: ignore
+            self._ref.value = e.args
 
         ele.on("change", handler=on_model_value_changed)

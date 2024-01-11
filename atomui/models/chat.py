@@ -1,11 +1,14 @@
 import datetime
-from typing import List
+from typing import List, Optional, Dict
 from pydantic import BaseModel, computed_field
 
 
 class ChatMessage(BaseModel):
     role: str
-    value: str
+    content: str
+    think: Optional[bool] = False
+    func_call: Dict[str, str] = None
+
 
 
 class ChatCard(BaseModel):

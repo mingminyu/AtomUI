@@ -1,14 +1,13 @@
-from typing import Optional, cast
 from signe import effect
 from nicegui import ui
-from nicegui.elements.mixins.color_elements import TextColorElement
-from .base import SingleValueBindableUi, _bind_color
+from typing import Optional
+from .base import BindableUi
 from ..utils import convert_kws_ref2value
 from ..utils.signals import ReadonlyRef, is_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
 
 
-class DialogBindableUi(SingleValueBindableUi[str, ui.dialog]):
+class DialogBindableUi(BindableUi[ui.dialog]):
     def __init__(
         self,
         *,
@@ -36,8 +35,8 @@ class DialogBindableUi(SingleValueBindableUi[str, ui.dialog]):
             "value": value,
         }
         value_kws = convert_kws_ref2value(kws)
-        element = ui.icon(**value_kws)
-        super().__init__(value, element)
+        element = ui.dialog(**value_kws)
+        super().__init__(element)
 
         for key, value in kws.items():
             if is_ref(value):
