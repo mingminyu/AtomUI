@@ -1,6 +1,7 @@
 import datetime
 from typing import List, Optional, Dict
 from pydantic import BaseModel, computed_field
+from uuid import UUID
 
 
 class ChatMessage(BaseModel):
@@ -11,16 +12,16 @@ class ChatMessage(BaseModel):
 
 
 
-class ChatCard(BaseModel):
+class ChatCardModel(BaseModel):
     user: str
-    cid: str
+    cid: UUID
     title: str
     date: datetime.date
     conversation: List[ChatMessage]
 
     @computed_field
     @property
-    def chat_date_flag(self) -> int:
+    def date_flag(self) -> int:
         if self.date == datetime.date.today():
             return 1
         elif self.date == datetime.date.today() - datetime.timedelta(days=1):

@@ -120,7 +120,6 @@ class ChatEditCard(CardBindableUi):
     ):
         super().__init__(flat=True)
         self.sess_id = chat_id
-        # self.input_clearable = input_clearable
         self.__click_callback: Optional[Callable[[], None]] = None
         self.__dblclick_callback: Optional[Callable[[], None]] = None
 

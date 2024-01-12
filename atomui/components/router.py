@@ -1,8 +1,8 @@
+from uuid import UUID
 from typing import Callable, Dict, Union, Optional
 from nicegui import background_tasks, ui, helpers
-from functools import partial
+
 from atomui import to_ref
-from ..utils.signals import ReadonlyRef, is_ref, effect
 from ..utils.signals import _TMaybeRef as TMaybeRef
 
 
@@ -18,7 +18,7 @@ class RouterFrame(ui.element, component='router_frame.js'):
 class Router:
     def __init__(self) -> None:
         self.routes: Dict[str, Callable] = {}
-        self.content: ui.element = None
+        self.content: Optional[ui.element] = None
         self.curr_path: Optional[TMaybeRef[str]] = to_ref('/')
 
     def add(self, path: str):
@@ -27,36 +27,41 @@ class Router:
             return func
         return decorator
 
-    def add_parameters_url(self, chat_id: str, func: Callable):
-        self.routes[chat_id] = partial(func, chat_id=chat_id)
 
+    def open(
+        self,
+        target: str = "/chat",
+        *,
+        chat_id: Optional[Union[str, UUID]] = None
+    ) -> None:
+        if target.startswith("/chat") and target.count("/") == 2:
+            chat_id = target.split("/")[-1]
+            target = "/chat"
 
-    def open(self, target: Union[Callable, str], func: Optional[Callable] = None) -> None:
-        if isinstance(target, str):
-            if target not in self.routes and func is not None:
-                self.add_parameters_url(target, func)
-
-            path = target if target in self.routes.keys() else "/"
-            builder = self.routes[path]  # 如果未找到路径，则重定向的到首页
+        if target in self.routes.keys() and chat_id is not None:
+            builder = self.routes[target]
+            path = f"{target}/{chat_id}"
         else:
-            path = {v: k for k, v in self.routes.items()}.get(target, "/")
-            builder = target
+            path = "/"
+            builder = self.routes[path]
 
         async def build() -> None:
             with self.content:
-                ui.run_javascript(f'''
-                    if (window.location.pathname !== "{path}") {{
-                        history.pushState({{page: "{path}"}}, "", "{path}");
-                    }}
+                ui.run_javascript(
+                    f'''
+                        if (window.location.pathname !== "{path}") {{
+                            history.pushState({{page: "{path}"}}, "", "{path}");
+                        }}
                     ''')
-                result = builder()
+                result = builder(chat_id) if chat_id is not None else builder()
 
                 if helpers.is_coroutine_function(builder):
                     await result
 
         self.content.clear()
         background_tasks.create(build())
-        self.curr_path.value = path  # 记录当前URL
+        self.curr_path.value = path
+
 
     def frame(self) -> ui.element:
         self.content = RouterFrame().on('open', lambda e: self.open(e.args))

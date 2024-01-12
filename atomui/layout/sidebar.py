@@ -3,11 +3,11 @@ from atomui import webui
 from atomui import to_ref
 from atomui.components.router import Router
 from atomui.mock.chat_conversation import chat_conversations_example
-from atomui.models.chat import ChatCard
+from atomui.models.chat import ChatCardModel
 from atomui.layout.body import chat_messages_card
 
 
-chat_cards = [ChatCard(**chat_conversation) for chat_conversation in chat_conversations_example]
+chat_cards = [ChatCardModel(**chat_conversation) for chat_conversation in chat_conversations_example]
 
 
 def chat_main(chat_id: str):
@@ -17,7 +17,7 @@ def chat_main(chat_id: str):
     chat_messages_card(chat_card[0].conversation)
 
 
-def chat_sidebar_card(chat_card: ChatCard, router: Router):
+def chat_sidebar_card(chat_card: ChatCardModel, router: Router):
     return webui.chat_edit_card(
         chat_card.title, show_input=to_ref(False),
         chat_id=chat_card.cid, curr_chat_id=router.curr_path,
@@ -47,25 +47,25 @@ def chat_sidebar(router: Router) -> webui.drawer:
 
         ui.label('Today').classes('text-xs text-slate-400 mt-10')
         for chat_conversation in chat_conversations_example:
-            chat_card = ChatCard(**chat_conversation)
+            chat_card = ChatCardModel(**chat_conversation)
 
-            if chat_card.chat_date_flag == 1:
+            if chat_card.date_flag == 1:
                 chat_sidebar_card(chat_card, router)
 
         # chat_sidebar_card(chat_card=ChatCard(**chat_conversation_example[0]), router=router)
 
         ui.label('Yesterday').classes('text-xs text-slate-400')
         for chat_conversation in chat_conversations_example:
-            chat_card = ChatCard(**chat_conversation)
+            chat_card = ChatCardModel(**chat_conversation)
 
-            if chat_card.chat_date_flag == 2:
+            if chat_card.date_flag == 2:
                 chat_sidebar_card(chat_card, router)
 
         ui.label('Previous 30 Days').classes('text-xs text-slate-400')
         for chat_conversation in chat_conversations_example:
-            chat_card = ChatCard(**chat_conversation)
+            chat_card = ChatCardModel(**chat_conversation)
 
-            if chat_card.chat_date_flag == 3:
+            if chat_card.date_flag == 3:
                 chat_sidebar_card(chat_card, router)
 
     return left_drawer
