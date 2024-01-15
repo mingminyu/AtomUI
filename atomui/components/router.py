@@ -1,4 +1,3 @@
-from uuid import UUID
 from typing import Callable, Dict, Union, Optional
 from nicegui import background_tasks, ui, helpers
 
@@ -32,7 +31,7 @@ class Router:
         self,
         target: str = "/chat",
         *,
-        chat_id: Optional[Union[str, UUID]] = None
+        chat_id: Optional[str] = None
     ) -> None:
         if target.startswith("/chat") and target.count("/") == 2:
             chat_id = target.split("/")[-1]

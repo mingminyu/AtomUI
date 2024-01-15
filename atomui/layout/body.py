@@ -5,7 +5,7 @@ from typing import List
 from atomui.utils.signals import ReadonlyRef, to_ref
 from atomui import webui
 from atomui.utils.parser import MarkdownParser
-from atomui.models.chat import ChatMessage
+from atomui.models.chat import ChatMessageModel
 
 md_parser = MarkdownParser()
 
@@ -25,7 +25,7 @@ def chat_greet(show_ref: ReadonlyRef):
 
 def build_task_loading(
     message: str,
-    chat_message: ChatMessage = None,
+    chat_message: ChatMessageModel = None,
 ):
     with ui.row().classes('w-full self-center'):
         if not chat_message.think:
@@ -41,7 +41,7 @@ def build_task_loading(
             ui.label(message).classes('text-md')
 
 
-def chat_message_card(chat_message: ChatMessage):
+def chat_message_card(chat_message: ChatMessageModel):
     """
     展示聊天对话信息
     当前可以实现 Thinking 的 spinner 效果，但是交互信息会先出来
@@ -74,7 +74,7 @@ def chat_message_card(chat_message: ChatMessage):
                     task_bound.add_done_callback(when_task_done)
 
 
-def chat_messages_card(chat_messages: List[ChatMessage]):
+def chat_messages_card(chat_messages: List[ChatMessageModel]):
     """展示整个对话信息"""
     for chat_message in chat_messages:
         chat_message_card(chat_message)

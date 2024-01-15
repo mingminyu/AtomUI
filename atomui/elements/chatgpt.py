@@ -1,6 +1,6 @@
 from nicegui import ui
 from uuid import uuid4, UUID
-from datetime import datetime
+from datetime import datetime, date
 from typing import List, Optional, Any, Callable, cast, Literal, Union
 from nicegui.events import KeyEventArguments, GenericEventArguments, ClickEventArguments
 from .footer import FooterBindableUi
@@ -15,8 +15,7 @@ from .badge import BadgeBindableUi
 from .header import HeaderBindableUi
 from .base import BindableUi
 from ..components.router import Router
-from ..models.chat import ChatCardModel
-
+from ..models.chat import ChatCardModel, ChatInfo
 from ..utils.signals import ReadonlyRef, is_ref, effect, ref_computed, to_ref
 from ..utils.signals import _TMaybeRef as TMaybeRef
 from ..utils.click import FreeClick
@@ -42,7 +41,7 @@ def chat_greet():
 
 
 
-class ChatEditCard(CardBindableUi):
+class ChatInfoEditCard(CardBindableUi):
     """ChatGPT 风格的编辑卡片，用于侧边栏展示"""
     def __init__(
         self,
@@ -115,7 +114,7 @@ class ChatEditCard(CardBindableUi):
 
 
 
-class ChatCard(BindableUi[ui.row]):
+class ChatInfoCard(BindableUi[ui.row]):
     def __init__(
         self,
         *,
@@ -130,7 +129,7 @@ class ChatCard(BindableUi[ui.row]):
         self.chat_id = chat_id
 
         with self:
-            self.chat_edit_card = ChatEditCard(
+            self.chat_edit_card = ChatInfoEditCard(
                 title=title, show_input=show_input, input_clearable=input_clearable,
                 chat_id=chat_id, router=router
             )
@@ -143,12 +142,13 @@ class ChatCard(BindableUi[ui.row]):
                     MenuItemBindableUi('Rename', dense=True, flat=True).classes('self-center text-center p-2.5')
                     MenuItemBindableUi('Delete', dense=True, flat=True).classes('self-center text-center p-2.5')
 
+
 class ChatSidebar(DrawerBindableUi):
     def __init__(
         self,
         *,
         router: Router,
-        chat_cards: List[ChatCardModel] = None,
+        chat_infos: List[ChatInfo] = None,
     ):
         super().__init__(
             side="left", value=True, top_corner=True, bottom_corner=True, fixed=True,
@@ -179,21 +179,18 @@ class ChatSidebar(DrawerBindableUi):
             with container_d30:
                 ui.label('Previous 30 Days').classes(date_tag_css)
 
-            for chat_card in chat_cards:
-                if chat_card.date_flag == 1:
+            for chat_info in chat_infos:
+                if (date.today() - chat_info.date).days == 0:
                     with container_d0:
-                        # with ui.row().classes('w-full flex justify-between'):
-                        ChatCard(title=chat_card.title, chat_id=chat_card.cid, router=router)
+                        ChatInfoCard(title=chat_info.title, chat_id=chat_info.cid, router=router)
 
-                elif chat_card.date_flag == 2:
+                elif (date.today() - chat_info.date).days == 1:
                     with container_d1:
-                        # with ui.row().classes('w-full flex justify-between'):
-                        ChatCard(title=chat_card.title, chat_id=chat_card.cid, router=router)
+                        ChatInfoCard(title=chat_info.title, chat_id=chat_info.cid, router=router)
 
-                elif chat_card.date_flag == 3:
+                elif (date.today() - chat_info.date).days > 1:
                     with container_d30:
-                        # with ui.row().classes('w-full flex justify-between'):
-                        ChatCard(title=chat_card.title, chat_id=chat_card.cid, router=router)
+                        ChatInfoCard(title=chat_info.title, chat_id=chat_info.cid, router=router)
 
 
 class ChatFooter(FooterBindableUi):
@@ -243,17 +240,30 @@ class ChatFooter(FooterBindableUi):
 
     def __handle_send_event(self):
         """处理输入框中 enter 和发送按钮 click 的事件，避免 shift+enter 同时按下触发"""
-        new_chat_card = self.__create_new_sidebar_card()
-        new_chat_card.element.move(
-            self._chat_sidebar.element.default_slot.children[1], target_index=1
-        )
-        self._router.open(chat_id=new_chat_card.chat_id)
+
+        # print(self._router.curr_path.value)
+
+        # new_chat_card = self.__create_new_sidebar_card()
+        fake_new_card = self.__create_new_sidebar_card()
+        if self._router.curr_path.value == "/":
+            new_chat_card = ChatInfoCard(title=fake_new_card.title, chat_id=fake_new_card.cid, router=self._router)
+            new_chat_card.element.move(
+                self._chat_sidebar.element.default_slot.children[1], target_index=1
+            )
+            self._router.open(chat_id=new_chat_card.chat_id)
+        else:
+            from atomui.layout.body import chat_messages_card
+            from nicegui import context
+            with context.get_client():
+                chat_messages_card(fake_new_card.conversation)
+
+
         self.chat_box.element.set_value("")
 
     def __create_new_sidebar_card(self):
         fake_data = {
             "user": "draven",
-            "cid": uuid4(),
+            "cid": str(uuid4()),
             "title": self.chat_box.value.strip()[:20],
             "date": f"{datetime.now():%Y-%m-%d}",
             "conversation": [
@@ -267,9 +277,11 @@ class ChatFooter(FooterBindableUi):
                 },
             ]
         }
+
         fake_new_card = ChatCardModel(**fake_data)
-        new_chat_card = ChatCard(title=fake_new_card.title, chat_id=fake_new_card.cid, router=self._router)
-        return new_chat_card
+
+        # new_chat_card = ChatCard(title=fake_new_card.title, chat_id=fake_new_card.cid, router=self._router)
+        return fake_new_card
 
 
 class ChatHeader(HeaderBindableUi):

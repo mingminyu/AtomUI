@@ -1,4 +1,5 @@
 .idea/
+.nicegui/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
